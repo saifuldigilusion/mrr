@@ -48,10 +48,10 @@ class UserController extends Controller
     }
 
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
-        Log::debug("getTokenAndRefreshToken to call mrr.test/oauth/token");
+        Log::debug("getTokenAndRefreshToken to call mrr.test/be/oauth/token");
         $oClient = OClient::where('password_client', 1)->first();
         $http = new Client;
-        $response = $http->request('POST', 'http://mrr.test/oauth/token', [ #url('/oauth/token'), [
+        $response = $http->request('POST', 'http://mrr.test/be/oauth/token', [ #url('/oauth/token'), [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => $oClient->id,
@@ -73,7 +73,7 @@ class UserController extends Controller
         $http = new Client;
 
         try {
-            $response = $http->request('POST', 'http://mrr.test/oauth/token', [ #url('/oauth/token'), [
+            $response = $http->request('POST', 'http://mrr.test/be/oauth/token', [ #url('/oauth/token'), [
                 'form_params' => [
                     'grant_type' => 'refresh_token',
                     'refresh_token' => $refresh_token,
