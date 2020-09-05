@@ -20,7 +20,11 @@ class UserController extends Controller
     public function login() { 
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) { 
             $oClient = OClient::where('password_client', 1)->first();
-            return $this->getTokenAndRefreshToken($oClient, request('email'), request('password'));
+
+            $accessToken = auth()->user()->createToken('authToken')->accessToken;
+            return response(['user' => auth()->user(), 'access_token' => $accessToken]);
+
+            //return $this->getTokenAndRefreshToken($oClient, request('email'), request('password'));
         } 
         else { 
             return response()->json(['error'=>'Unauthorised'], 401); 
@@ -43,8 +47,12 @@ class UserController extends Controller
         $input = $request->all(); 
         $input['password'] = bcrypt($input['password']); 
         $user = User::create($input); 
-        $oClient = OClient::where('password_client', 1)->first();
-        return $this->getTokenAndRefreshToken($oClient, $user->email, $password);
+
+        $accessToken = $user->createToken('authToken')->accessToken;
+        return response([ 'user' => $user, 'access_token' => $accessToken]);
+
+        //$oClient = OClient::where('password_client', 1)->first();
+        //return $this->getTokenAndRefreshToken($oClient, $user->email, $password);
     }
 
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
