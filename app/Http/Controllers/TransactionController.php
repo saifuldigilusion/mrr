@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Http;
 class TransactionController extends Controller
 {
     public function data(Request $request) {
-
+        
         $transactions = Transaction::orderBy('id', 'DESC')->get();
         return $transactions;
 
