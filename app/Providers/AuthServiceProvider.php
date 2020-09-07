@@ -27,6 +27,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // spartie Role and Permissions
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super Admin') ? true : null;
+        });
+
         // saiful added for passport
         Passport::routes();
         Passport::tokensExpireIn(Carbon::now()->addDays(1));

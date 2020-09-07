@@ -5,6 +5,7 @@
 /public/*.config
 /storage/*.key
 /storage/logs
+/web/*.config
 /vendor
 .env
 .env.backup
