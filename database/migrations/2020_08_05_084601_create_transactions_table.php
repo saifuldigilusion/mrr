@@ -29,7 +29,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('processtime')->default(0);
             $table->string('identifier', 100)->unique();
             $table->dateTime('lastretrival')->nullable();
-            $table->text('jsonout')->nullable();
+            $table->longtext('jsonout')->nullable();
 
         });
     }
