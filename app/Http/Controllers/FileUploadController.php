@@ -54,7 +54,7 @@ class FileUploadController extends Controller
             Log::debug('transaction id ' . $transaction->id);
 
             // calling backend process 
-            //$response = Http::get('http://flask:5000/process?id=' . $transaction->id . '&name=' . $uuid);
+            $response = Http::get('http://flask:5000/process?id=' . $transaction->id . '&name=' . $uuid);
             //return $response->body();
             return $transaction;
 
