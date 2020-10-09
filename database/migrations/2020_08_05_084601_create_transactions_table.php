@@ -27,6 +27,7 @@ class CreateTransactionsTable extends Migration
             $table->dateTime('processstart')->nullable();
             $table->dateTime('processend')->nullable();
             $table->integer('processtime')->default(0);
+            $table->string('processinfo', 100)->nullable();
             $table->string('identifier', 100)->unique();
             $table->dateTime('lastretrival')->nullable();
             $table->longtext('jsonout')->nullable();

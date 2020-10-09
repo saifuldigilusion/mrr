@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Provider;
 use App\User; 
 use App\Transaction;
 use App\TransactionDocument;
@@ -40,6 +41,7 @@ class FileUploadController extends Controller
             $transaction->filesize = $savedFile->getSize();
             $transaction->identifier = $uuid;
             $transaction->user_id = Auth::id();
+            $transaction->status = "PROCESSING";
             $transaction->save();
 
             $tdoc = new TransactionDocument;
@@ -52,8 +54,10 @@ class FileUploadController extends Controller
             Log::debug('transaction id ' . $transaction->id);
 
             // calling backend process 
-            $response = Http::get('http://flask:5000/process?id=' . $transaction->id . '&name=' . $uuid);
-            return $response->body();
+            //$response = Http::get('http://flask:5000/process?id=' . $transaction->id . '&name=' . $uuid);
+            //return $response->body();
+            return $transaction;
+
         }
         else {
             return "Error";
@@ -67,12 +71,11 @@ class FileUploadController extends Controller
     }
 
     public function clientCode() {
-        $clientCode = array(
-            array("value" => "0001", "label" => "0001"),
-            array("value" => "0002", "label" => "0002"),
-            array("value" => "0003", "label" => "0003"),
-        );
 
-        return $clientCode;
+        $providers = Provider::get();
+        return $providers;
+        
+
+        //return $clientCode;
     }
 }

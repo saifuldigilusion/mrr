@@ -18,7 +18,8 @@ class CreateTransactionDocumentsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('transaction_id');
-            $table->string('filetype', 100)->nullable();    
+            $table->string('filetype', 100)->nullable();   
+            $table->longText('svg')->nullable(); 
             //$table->mediumText('file')->nullable();
             //$table->binary('file')->nullable();
         });

@@ -31,12 +31,14 @@ Route::group(['middleware' => ['CheckClientCredentials','auth:api']], function()
 
 Route::group(['middleware' => ['CheckClientCredentials','auth:api', 'can:create transaction']], function() {
     Route::post('fileupload', 'FileUploadController@upload');
+    Route::get('/transaction/result/{identifier}', 'TransactionController@result');
     Route::get('fileinfo', 'FileUploadController@info');
 });
 
 Route::group(['middleware' => ['CheckClientCredentials','auth:api', 'can:view transaction']], function() {
     Route::get('/transaction/data', 'TransactionController@data');
     Route::get('/transaction/data/{identifier}', 'TransactionController@detail');
+    Route::get('/transaction/svg/{identifier}', 'TransactionController@getSvg');
 });
 
 Route::group(['middleware' => ['CheckClientCredentials','auth:api', 'can:create user']], function() {
@@ -53,3 +55,4 @@ Route::group(['middleware' => ['CheckClientCredentials','auth:api', 'can:view co
 // test
 Route::get('/test/callflask', 'TestController@callFlask');
 Route::get('/test/data', 'TestController@data');
+Route::get('/test/svg/{identifier}', 'TestController@getSvg');
